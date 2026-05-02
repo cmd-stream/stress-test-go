@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"os"
 	"os/signal"
@@ -12,9 +13,17 @@ import (
 )
 
 func main() {
-	const addr = "127.0.0.1:9000"
+	configPath := flag.String("config", "", "Path to YAML configuration file")
+	flag.Parse()
 
-	// 1. Setup JSON codec.
+	// 1. Setup stress config.
+	cfg, err := LoadConfig(*configPath)
+	if err != nil && !os.IsNotExist(err) {
+		fmt.Printf("Failed to load config: %v\n", err)
+		return
+	}
+
+	// 2. Setup JSON codec.
 	var (
 		reg = cdcjson.NewRegistry(
 			cdcjson.WithCmd[struct{}, EchoCmd](),
@@ -27,34 +36,8 @@ func main() {
 		clientCodec = cdcjson.NewClientCodecWith(reg)
 	)
 
-	// 2. Setup stress config.
-	cfg := StressConfig{
-		FailProb:          0.0001,
-		EchoProb:          0.4999,
-		MaxStreamResults:  5,
-		NoPauseProb:       0.8,
-		WorkloadPauseProb: 0.19,
-		WorkloadPauseMax:  500 * time.Millisecond,
-		KeepalivePauseMax: 6 * time.Second,
-
-		CircuitBreakerWindowSize:       10,
-		CircuitBreakerFailureRate:      0.5,
-		CircuitBreakerOpenDuration:     3 * time.Second,
-		CircuitBreakerSuccessThreshold: 2,
-
-		KeepaliveIntvl: time.Second,
-		KeepaliveTime:  2 * time.Second,
-
-		SessionsCount:      10,
-		SenderClientsCount: 4,
-		ServerWorkersCount: 20,
-
-		ServerWorkIntervalMax: 20 * time.Second,
-		ServerDowntimeMax:     5 * time.Second,
-	}
-
 	// 3. Start restartable server.
-	server := NewRestartableServer(addr, cfg.ServerWorkersCount, serverCodec)
+	server := NewRestartableServer(cfg.Address, cfg.ServerWorkersCount, serverCodec)
 	if err := server.Start(); err != nil {
 		fmt.Printf("Failed to start server: %v\n", err)
 		return
@@ -63,7 +46,7 @@ func main() {
 
 	// 4. Start stress tester.
 	time.Sleep(100 * time.Millisecond)
-	tester, err := NewStressTester(addr, clientCodec, cfg)
+	tester, err := NewStressTester(cfg.Address, clientCodec, cfg)
 	if err != nil {
 		fmt.Printf("Failed to create stress tester: %v\n", err)
 		server.Stop()

@@ -1,0 +1,37 @@
+# cmd-stream Stress Test Configuration
+address: "127.0.0.1:9000"
+
+# Probabilities of choosing a Command type.
+fail_prob: 0.0001
+echo_prob: 0.4999
+# stream_prob is calculated as 1 - fail_prob - echo_prob (0.5000 by default)
+
+max_stream_results: 5
+
+# Probabilities of pausing between Commands.
+no_pause_prob: 0.8
+workload_pause_prob: 0.19
+# keepalive_pause_prob is calculated as 1 - no_pause_prob - workload_pause_prob (0.01 by default)
+
+# Pause durations.
+workload_pause_max: 500ms
+keepalive_pause_max: 6s
+
+# Circuit Breaker settings.
+cb_window_size: 10
+cb_failure_rate: 0.5
+cb_open_duration: 3s
+cb_success_threshold: 2
+
+# Keepalive settings.
+keepalive_intvl: 1s
+keepalive_time: 2s
+
+# Concurrency settings.
+sessions_count: 10
+sender_clients_count: 4
+server_workers_count: 20
+
+# Server lifecycle settings.
+server_work_interval_max: 20s
+server_downtime_max: 5s

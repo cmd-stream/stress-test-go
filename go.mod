@@ -6,6 +6,7 @@ require (
 	github.com/cmd-stream/cmd-stream-go v0.6.2
 	github.com/cmd-stream/codec-json-go v0.0.0-20260501205955-403462d184f7
 	github.com/ymz-ncnk/circbrk-go v0.0.0-20260117185435-2da55ad9387e
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (

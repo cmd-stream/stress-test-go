@@ -19,7 +19,14 @@ resilience under high concurrency and unstable network.
 
 ## Configuration
 
-Configuration is managed via the `StressConfig` struct in [config.go](config.go).
+Configuration is managed via the `StressConfig` struct in [config.go](config.go). 
+You can provide a YAML configuration file using the `-config` flag:
+
+```bash
+go run . -config my-config.yaml
+```
+
+If no config file is provided, the test uses default values. See [config.yaml.example](config.yaml.example) for all available options and their default values.
 
 ## Running the Stress Test
 
