@@ -221,7 +221,7 @@ func (t *StressTester) reportLoop() {
 		fmt.Printf("  - Send Timeouts:      %d (%.1f%%)\n", sendTimeout, float64(sendTimeout)/float64(total)*100)
 		fmt.Printf("  - Result Timeouts:    %d (%.1f%%)\n", resultTimeout, float64(resultTimeout)/float64(total)*100)
 		fmt.Printf("  - Network Error:      %d (%.1f%%)\n", netErr, float64(netErr)/float64(total)*100)
-		fmt.Printf("  - Unexpected Err:     %d (%.1f%%)\n", unexpected, float64(unexpected)/float64(total)*100)
+		fmt.Printf("  - Unexpected Error:   %d (%.1f%%)\n", unexpected, float64(unexpected)/float64(total)*100)
 		fmt.Printf("  - Verify Error:       %d (%.1f%%) [CRITICAL]\n", verifyErr, float64(verifyErr)/float64(total)*100)
 		fmt.Printf("-----------------------------\n\n")
 	}
