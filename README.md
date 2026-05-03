@@ -63,8 +63,14 @@ Any `Verify Error` greater than 0 indicates a bug in the library or the test
 itself and is considered a critical failure.
 
 > [!NOTE]
-> A very high `CB Blocked` count is expected under these stress-test conditions.
-> When the Circuit Breaker opens, it intercepts Commands before they are 
-> processed. Since sending sessions operate with almost no pause (80% of time by 
-> default), they enter a "tight loop" and generate thousands of blocked attempts 
-> per second until the system detects a recovery.
+> Interpreting the results:
+>
+> - QPS: The total Command count might seem low (~80 QPS) compared to raw 
+>   benchmarks. This is due to artificial server delays, periodic downtimes, and 
+>   client-side pauses used to simulate a realistic unstable environment.
+> - CB Blocked: A high "CB Blocked" count is expected. When the Circuit Breaker 
+>   opens during server downtime, sending sessions enter a "tight loop" and 
+>   generate many blocked attempts until the system recovers.
+> 
+> The focus is on verifying stability and correctness under load, not maximum 
+> throughput.
