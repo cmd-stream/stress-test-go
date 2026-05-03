@@ -68,7 +68,7 @@ itself and is considered a critical failure.
 > - QPS: The total Command count might seem low (~80 QPS) compared to raw 
 >   benchmarks. This is due to artificial server delays, periodic downtimes, and 
 >   client-side pauses used to simulate a realistic unstable environment.
-> - CB Blocked: A high "CB Blocked" count is expected. When the Circuit Breaker 
+> - CB Blocked: A high `CB Blocked` count is expected. When the Circuit Breaker 
 >   opens during server downtime, sending sessions enter a "tight loop" and 
 >   generate many blocked attempts until the system recovers.
 > 
