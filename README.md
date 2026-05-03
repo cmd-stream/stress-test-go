@@ -54,7 +54,7 @@ Total Commands: 3577792
   - Send Timeouts:      0 (0.0%)            # Timeout during Command send.
   - Result Timeouts:    6505 (0.2%)         # Timeout waiting for result.
   - Network Error:      18640 (0.5%)        # Connection issues (e.g. server down before CB trips).
-  - Unexpected Err:     0 (0.0%)            # Uncategorized errors.
+  - Unexpected Error:     0 (0.0%)            # Uncategorized errors.
   - Verify Error:       0 (0.0%) [CRITICAL] # Received data mismatch.
 -----------------------------
 ```
