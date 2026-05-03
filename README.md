@@ -30,7 +30,7 @@ go run . -config my-config.yaml
 ```
 
 The test will start 10 concurrent sessions (using 4 `cmd-stream` clients) and 
-begin reporting statistics every 10 seconds. To stop use `Ctrl+C`.
+begin reporting statistics every 10 seconds. To stop, use `Ctrl+C`.
 
 In [config.yaml.example](config.yaml.example) you can find all available 
 configuration options.
