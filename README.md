@@ -17,28 +17,23 @@ resilience under high concurrency and unstable network.
 - Has configurable long pauses to trigger and verify keepalive.
 - Reports success rates, timeouts, network errors, and verification failures.
 
-## Configuration
-
-Configuration is managed via the `StressConfig` struct in [config.go](config.go). 
-You can provide a YAML configuration file using the `-config` flag:
-
-```bash
-go run . -config my-config.yaml
-```
-
-If no config file is provided, the test uses default values. See [config.yaml.example](config.yaml.example) for all available options and their default values.
-
 ## Running the Stress Test
 
 Simply execute:
 
 ```bash
+# Run with default settings
 go run .
+
+# Or with custom configuration
+go run . -config my-config.yaml
 ```
 
 The test will start 10 concurrent sessions (using 4 `cmd-stream` clients) and 
-begin reporting statistics every 10 seconds. Use `Ctrl+C` to shut down the test 
-gracefully.
+begin reporting statistics every 10 seconds. To stop use `Ctrl+C`.
+
+In [config.yaml.example](config.yaml.example) you can find all available 
+configuration options.
 
 ## Summary Output
 
