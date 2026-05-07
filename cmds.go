@@ -15,11 +15,9 @@ const MaxDelayDuration = 100 * time.Millisecond
 // EchoCmd echoes the payload back to the client.
 type EchoCmd string
 
-func (c EchoCmd) Exec(ctx context.Context, seq core.Seq, at time.Time,
-	receiver struct{}, proxy core.Proxy,
-) error {
+func (c EchoCmd) Exec(ctx context.Context, receiver struct{}, proxy core.Proxy) error {
 	randomDelay()
-	_, err := proxy.Send(seq, EchoResult(c))
+	_, err := proxy.Send(EchoResult(c))
 	return err
 }
 
@@ -29,9 +27,7 @@ type StreamCmd struct {
 	ResultsCount int
 }
 
-func (c StreamCmd) Exec(ctx context.Context, seq core.Seq, at time.Time,
-	receiver struct{}, proxy core.Proxy,
-) error {
+func (c StreamCmd) Exec(ctx context.Context, receiver struct{}, proxy core.Proxy) error {
 	if c.ResultsCount == 0 {
 		fmt.Printf("PANIC PREVENTED: ResultsCount is 0. InitNum: %d\n", c.InitNum)
 	}
@@ -40,7 +36,7 @@ func (c StreamCmd) Exec(ctx context.Context, seq core.Seq, at time.Time,
 		delay(ms)
 		val := c.InitNum + i
 		last := i == c.ResultsCount-1
-		_, err := proxy.Send(seq, StreamResult{Value: val, Last: last})
+		_, err := proxy.Send(StreamResult{Value: val, Last: last})
 		if err != nil {
 			return err
 		}
@@ -52,9 +48,7 @@ func (c StreamCmd) Exec(ctx context.Context, seq core.Seq, at time.Time,
 // connection.
 type FailCmd struct{}
 
-func (c FailCmd) Exec(ctx context.Context, seq core.Seq, at time.Time,
-	receiver struct{}, proxy core.Proxy,
-) error {
+func (c FailCmd) Exec(ctx context.Context, receiver struct{}, proxy core.Proxy) error {
 	randomDelay()
 	fmt.Println("--- FailCmd: going to drop the connection ---")
 	return errors.New("intentional failure")

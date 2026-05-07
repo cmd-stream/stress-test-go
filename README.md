@@ -40,17 +40,18 @@ configuration options.
 Here is an example of the last summary report from a 12-hour run:
 
 ```text
+
 --- [STRESS TEST SUMMARY] ---
-Total Commands: 3577792
-  - Success:            1905640 (53.3%)     # Commands completed with verified results.
-  - CB Blocked:         1647007 (46.0%)     # Commands prevented from sending by Circuit Breaker.
-  - Keepalive Triggers: 35785               # Simulated idle periods to trigger keepalive.
-  - Late Results:       4746                # Responses arrived after timeout.
-  - Send Timeouts:      0 (0.0%)            # Timeout during Command send.
-  - Result Timeouts:    6505 (0.2%)         # Timeout waiting for result.
-  - Network Error:      18640 (0.5%)        # Connection issues (e.g. server down before CB trips).
-  - Unexpected Error:   0 (0.0%)            # Uncategorized errors.
-  - Verify Error:       0 (0.0%) [CRITICAL] # Received data mismatch.
+Total Commands: 4069635
+  - Success:            2197245 (54.0%)
+  - CB Blocked:         1844078 (45.3%)
+  - Keepalive Triggers: 40710
+  - Late Results:       4912
+  - Send Timeouts:      0 (0.0%)
+  - Result Timeouts:    7367 (0.2%)
+  - Network Error:      20945 (0.5%)
+  - Unexpected Error:   0 (0.0%)
+  - Verify Error:       0 (0.0%) [CRITICAL]
 -----------------------------
 ```
 
